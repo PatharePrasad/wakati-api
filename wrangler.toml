@@ -1,5 +1,5 @@
 name = "wakati-api"
-main = "src/index.ts"
+main = "src/index.js"
 compatibility_date = "2025-01-17"
 
 # compatibility_flags = [ "nodejs_compat" ]
