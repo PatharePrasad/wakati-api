@@ -2,13 +2,21 @@
   "name": "wakati-api",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "hono": "^4.6.16"
+    "@hono/zod-openapi": "^0.18.3",
+    "hono": "^4.6.16",
+    "hono-pino": "^0.7.0",
+    "pino": "^9.6.0",
+    "stoker": "^1.4.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.14.0",
     "@cloudflare/workers-types": "^4.20250109.0",
+    "eslint": "^9.18.0",
     "wrangler": "^3.101.0"
   }
 }
