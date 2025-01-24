@@ -1,27 +1,20 @@
-import {OpenAPIHono} from '@hono/zod-openapi'
-import { notFound, onError } from 'stoker/middlewares'
-import { pinoLogger } from 'hono-pino'
+import createApp from "@/lib/create-app";
+import configureOpenAPI from "./lib/configure-openapi";
 
+const app = createApp();
 
-const app = new OpenAPIHono()
+configureOpenAPI(app);
 
-function logger() {
-  return pinoLogger(
-    {
-      http: { reqId: () => crypto.randomUUID() },
-    }
-  )
-}
+app.get("/err", (c) => {
+  throw new Error("What's this");
+});
 
-app.use(logger())
-app.notFound(notFound)
-app.onError(onError)
+app.get("/", (c) => {
+  return c.json({ message: "Hello from our API" });
+});
 
+app.get("/analyze", (c) => {
+  return c.json({ message: "Working api " });
+});
 
-app.get('/', async (c) => {
-  return c.json({ message: 'Wakati API is active' })
-})
-
-
-
-export default app
+export default app;
