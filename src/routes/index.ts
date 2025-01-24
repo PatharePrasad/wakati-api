@@ -4,8 +4,19 @@ import type { Context } from "hono";
 
 const router = createRouter().openapi(
   createRoute({
-    method: "get",
+    method: "post",
     path: "status",
+    request: {
+      body: {
+        content: {
+          "application/json": {
+            schema: z.object({
+              text: z.string().url(),
+            }),
+          },
+        },
+      },
+    },
     responses: {
       200: {
         content: {
@@ -19,8 +30,9 @@ const router = createRouter().openapi(
       },
     },
   }),
-  (c: Context) => {
-    return c.json({ message: "Our API is working wow" }, 200);
+  async (c: Context) => {
+    const data = await c.req.json();
+    return c.json({ message: data.text }, 200);
   }
 );
 

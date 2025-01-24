@@ -1,9 +1,14 @@
 import createApp from "@/lib/create-app";
 import configureOpenAPI from "./lib/configure-openapi";
+import index from "@/routes/index";
 
 const app = createApp();
 
 configureOpenAPI(app);
+
+const routes = [index];
+
+routes.forEach((route) => app.route("/", route));
 
 app.get("/err", (c) => {
   throw new Error("What's this");
